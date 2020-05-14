@@ -1,3 +1,9 @@
+## Godot Legionnaire Base
+
+This is a fork of the Godot game engine with bugfixes and improvements 
+regarding audio latency. All patches unique to this fork are distributed
+under the MIT license.
+
 [![Godot Engine logo](/logo.png)](https://godotengine.org)
 
 ## Godot Engine
