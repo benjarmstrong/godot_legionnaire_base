@@ -88,6 +88,11 @@ int AudioDriverDummy::get_mix_rate() const {
 	return mix_rate;
 };
 
+int AudioDriverDummy::get_mix_buffer_size() const {
+
+	return DEFAULT_MIX_BUFFER_SIZE;
+}
+
 AudioDriver::SpeakerMode AudioDriverDummy::get_speaker_mode() const {
 
 	return speaker_mode;
@@ -124,6 +129,13 @@ void AudioDriverDummy::finish() {
 		memdelete(mutex);
 	thread = NULL;
 };
+
+float AudioDriverDummy::get_latency() {
+
+	if (mix_rate != 0)
+		return (float)get_mix_buffer_size() / (float)mix_rate;
+	return 0.f;
+}
 
 AudioDriverDummy::AudioDriverDummy() {
 

@@ -100,6 +100,10 @@ int AudioDriverMediaKit::get_mix_rate() const {
 	return mix_rate;
 }
 
+int AudioDriverMediaKit::get_mix_buffer_size() const {
+	return buffer_size;
+}
+
 AudioDriverMediaKit::SpeakerMode AudioDriverMediaKit::get_speaker_mode() const {
 	return speaker_mode;
 }
@@ -129,6 +133,12 @@ void AudioDriverMediaKit::finish() {
 		memdelete(mutex);
 		mutex = NULL;
 	}
+}
+
+float AudioDriverMediaKit::get_latency() {
+	if (mix_rate != 0)
+		return (float)buffer_size / (float)mix_rate;
+	return 0.f;
 }
 
 AudioDriverMediaKit::AudioDriverMediaKit() {

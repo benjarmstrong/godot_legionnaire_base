@@ -142,6 +142,10 @@ public:
 	}
 };
 
+int AudioDriverWASAPI::AudioDeviceWASAPI::Resampler::get_mix_buffer_size() const {
+	return INTERNAL_BUFFER_LEN;
+}
+
 void AudioDriverWASAPI::AudioDeviceWASAPI::Resampler::prepare(int _input_mix_rate, int _output_mix_rate, int _channels) {
 	print_verbose("WASAPI: preparing to resample " + itos(_input_mix_rate) + "Hz to " + itos(_output_mix_rate) + "Hz");
 	input_mix_rate = _input_mix_rate;
@@ -534,6 +538,20 @@ Error AudioDriverWASAPI::init() {
 
 int AudioDriverWASAPI::get_mix_rate() const {
 	return mix_rate;
+}
+
+int AudioDriverWASAPI::get_mix_buffer_size() const {
+	if (audio_output.resampler == NULL) {
+		return buffer_frames; 
+	}
+	else {
+		return audio_output.resampler->get_mix_buffer_size();
+	}
+}
+
+float AudioDriverWASAPI::get_latency() {
+
+	return (float)buffer_frames / (float)mix_rate;
 }
 
 AudioDriver::SpeakerMode AudioDriverWASAPI::get_speaker_mode() const {

@@ -77,6 +77,7 @@ class AudioDriverWASAPI : public AudioDriver {
 
 		public:
 			inline int get_input_mix_rate() { return input_mix_rate; }
+			int get_mix_buffer_size() const;
 			void prepare(int _input_mix_rate, int _output_mix_rate, int _channels);
 			void audio_server_process(AudioDriverWASAPI *p_driver, int32_t *p_output_buffer, int p_frames);
 
@@ -143,6 +144,8 @@ public:
 	virtual Error init();
 	virtual void start();
 	virtual int get_mix_rate() const;
+	virtual int get_mix_buffer_size() const;
+	virtual float get_latency();
 	virtual SpeakerMode get_speaker_mode() const;
 	virtual Array get_device_list();
 	virtual String get_device();
