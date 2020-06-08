@@ -39,6 +39,56 @@
 
 #include <functiondiscoverykeys.h>
 
+// Define IAudioClient3 if not already defined by MinGW headers
+#if defined __MINGW32__ || defined __MINGW64__
+
+#ifndef __IAudioClient3_FWD_DEFINED__
+#define __IAudioClient3_FWD_DEFINED__
+
+typedef interface IAudioClient3 IAudioClient3;
+
+#endif // __IAudioClient3_FWD_DEFINED__
+
+#ifndef __IAudioClient3_INTERFACE_DEFINED__
+#define __IAudioClient3_INTERFACE_DEFINED__
+
+MIDL_INTERFACE("7ED4EE07-8E67-4CD4-8C1A-2B7A5987AD42")
+IAudioClient3 : public IAudioClient2 {
+public:
+	virtual HRESULT STDMETHODCALLTYPE GetSharedModeEnginePeriod(
+			/* [annotation][in] */
+			_In_ const WAVEFORMATEX *pFormat,
+			/* [annotation][out] */
+			_Out_ UINT32 *pDefaultPeriodInFrames,
+			/* [annotation][out] */
+			_Out_ UINT32 *pFundamentalPeriodInFrames,
+			/* [annotation][out] */
+			_Out_ UINT32 *pMinPeriodInFrames,
+			/* [annotation][out] */
+			_Out_ UINT32 *pMaxPeriodInFrames) = 0;
+
+	virtual HRESULT STDMETHODCALLTYPE GetCurrentSharedModeEnginePeriod(
+			/* [unique][annotation][out] */
+			_Out_ WAVEFORMATEX * *ppFormat,
+			/* [annotation][out] */
+			_Out_ UINT32 * pCurrentPeriodInFrames) = 0;
+
+	virtual HRESULT STDMETHODCALLTYPE InitializeSharedAudioStream(
+			/* [annotation][in] */
+			_In_ DWORD StreamFlags,
+			/* [annotation][in] */
+			_In_ UINT32 PeriodInFrames,
+			/* [annotation][in] */
+			_In_ const WAVEFORMATEX *pFormat,
+			/* [annotation][in] */
+			_In_opt_ LPCGUID AudioSessionGuid) = 0;
+};
+__CRT_UUID_DECL(IAudioClient3, 0x7ED4EE07, 0x8E67, 0x4CD4, 0x8C, 0x1A, 0x2B, 0x7A, 0x59, 0x87, 0xAD, 0x42)
+
+#endif // __IAudioClient3_INTERFACE_DEFINED__
+
+#endif // __MINGW32__ || __MINGW64__
+
 #ifndef PKEY_Device_FriendlyName
 
 #undef DEFINE_PROPERTYKEY
